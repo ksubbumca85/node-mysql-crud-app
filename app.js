@@ -7,7 +7,9 @@ const app = express();
 
 const {getHomePage} = require('./routes/index');
 const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
-const port = 9999;
+//const port = 9999;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
@@ -46,6 +48,6 @@ app.post('/add', addPlayer);
 app.post('/edit/:id', editPlayer);
 
 // set the app to listen on the port
-app.listen(port,'9.30.140.121', () => {
+app.listen(server_port,server_ip_address, () => {
     console.log(`Server running on port: ${port}`);
 });
